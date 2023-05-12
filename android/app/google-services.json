@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361542218933",
+    "project_id": "my-freelanceapp-project",
+    "storage_bucket": "my-freelanceapp-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361542218933:android:caf7123c896eece965bafc",
+        "android_client_info": {
+          "package_name": "com.example.freelanceapp_like_fiverr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361542218933-l0p9p1996aleqh98qv9g3878p5fsonoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsceHrYM952Q9pRufd-RlbOu-VwByy0Gk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361542218933-l0p9p1996aleqh98qv9g3878p5fsonoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
