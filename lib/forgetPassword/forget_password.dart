@@ -27,6 +27,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
      await FirebaseAuth.instance.sendPasswordResetEmail(email: _passwordResetController.text.trim());
      Fluttertoast.showToast(msg: "Check your email to reset password", toastLength: Toast.LENGTH_LONG,
      gravity: ToastGravity.CENTER);
+     setState(() {
+       _passwordResetController.text = "";
+     });
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString(), toastLength: Toast.LENGTH_LONG, gravity: ToastGravity.BOTTOM);
       print(e); 
@@ -37,6 +40,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black.withOpacity(1),
+      actions: [IconButton(onPressed: (){
+        Navigator.pop(context);
+
+
+
+      }, icon: Icon(Icons.arrow_back))],),
 
       body: Stack(children: [
         CachedNetworkImage(
@@ -63,6 +74,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         fontStyle: FontStyle.italic),),
 
         TextField(
+          controller: _passwordResetController,
 
           decoration: InputDecoration(
             filled: true,
