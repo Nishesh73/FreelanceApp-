@@ -19,7 +19,7 @@ class LogInPage extends StatefulWidget {
   State<LogInPage> createState() => _LogInPageState();
 }
 
-class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin  {
+class _LogInPageState extends State<LogInPage> with SingleTickerProviderStateMixin  {
   Animation? _linearAnimation;
   AnimationController? _animationController;
 
@@ -81,50 +81,36 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin  {
   @override
   void initState() {
     super.initState(); 
+    
+
    
-
-
+  
     _animationController = AnimationController(vsync: this, duration: Duration(seconds: 29));
     _linearAnimation = CurvedAnimation(parent: _animationController!, curve: Curves.linear);
 
     //to call the build method for update add listener
-    _linearAnimation!.addListener(() { 
 
-      setState(() {
+   
+    _linearAnimation!.addListener(() { 
+ setState(() {
         
       });
-
-
-    });
+ });
    
      //animation end, start addstatus listener
-    _linearAnimation!.addStatusListener((status) { 
+    // _linearAnimation!.addStatusListener((status) { 
 
-      if(status == AnimationStatus.completed){
+    //   if(status == AnimationStatus.completed){
 
-        _animationController!.reset();
-        _animationController!.forward();
-      }
-
-
-
-    });
-
-    
-
-    _animationController!.forward();
-
-   
-
-    
+    //     _animationController!.reset();
+    //     _animationController!.forward();
+    //   }
 
 
 
-    
-     
+    // });
+ _animationController!.forward();
 
-
-    
   }
   @override
   Widget build(BuildContext context) {
@@ -137,13 +123,16 @@ class _LogInPageState extends State<LogInPage> with TickerProviderStateMixin  {
           imageUrl: showAnimUrl, fit: BoxFit.fill,
           width: double.infinity,
           height: double.infinity,
-          // alignment: FractionalOffset(_linearAnimation!.value, 0),
+           alignment: FractionalOffset(_linearAnimation!.value, 0),
           
           placeholder: (context, url) => Image.asset("myassets/images/wallpaper.jpg",
           fit: BoxFit.cover,
           
           ),
           errorWidget: (context, url, error) => Icon(Icons.error),
+
+
+
        ),
     
        Container(

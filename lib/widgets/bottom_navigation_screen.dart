@@ -106,7 +106,10 @@ Navigator.push(context, MaterialPageRoute(builder: (context) => UserState()));
 
       }
       else if(indexNo == 3){
-         Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileCompany()));
+         Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileCompany(
+
+          specificId: FirebaseAuth.instance.currentUser!.uid,
+         )));
 
 
 

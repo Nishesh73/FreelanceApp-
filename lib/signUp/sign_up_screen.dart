@@ -23,7 +23,7 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp> with TickerProviderStateMixin {
+class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   final _signUpKey = GlobalKey<FormState>();
   String name = "";
   String email = "";
@@ -260,6 +260,7 @@ Navigator.pop(context);
   @override
   void initState() { 
     super.initState();
+    // _animationController = AnimationController(vsync: this, duration: widget.duration );
 
     _animationController = AnimationController(vsync: this, duration: Duration(seconds: 25));
     _animation = CurvedAnimation(parent: _animationController!, curve: Curves.linear);

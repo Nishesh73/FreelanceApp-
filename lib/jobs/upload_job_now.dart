@@ -30,7 +30,7 @@ class _UploadJobState extends State<UploadJob> {
 
   DateTime? datePick;
   
-//  TimeOfDay? timeOfDay;
+Timestamp? jobDeadLineTimeStamp;
 
 @override
   void initState() {
@@ -49,6 +49,10 @@ void getmyData() async{
  name = documentSnapshot.get("name");
  userImage = documentSnapshot.get("userImage");
  location = documentSnapshot.get("location");
+
+ setState(() {
+   
+ });
 
 
 
@@ -81,6 +85,7 @@ void _uploadTaskInFirebase()async{
                             "jobTitle": _jobTitleController.text,
                             "jobDescription": _jobDescriptionController.text,
                             "jobDeadLine": _jobDeadlineController.text,
+                            "jobDeadLineTimeStamp": jobDeadLineTimeStamp,
 
                             "jobId": _jobId ,
                              "uploadedBy": FirebaseAuth.instance.currentUser!.uid ,
@@ -144,13 +149,15 @@ void _uploadTaskInFirebase()async{
   datePick = await showDatePicker(context: context, 
     initialDate: DateTime.now(), 
     firstDate: DateTime(2020), 
-    lastDate: DateTime.now());
+    lastDate: DateTime(2024));
 
     if(datePick != null){
 
       setState(() {
-    //  timeOfDay = TimeOfDay.fromDateTime(datePick!);
+    // timeOfDay = TimeOfDay.fromDateTime(datePick!);
         _jobDeadlineController.text = "${datePick!.year} - ${datePick!.month} - ${datePick!.day} ";
+        jobDeadLineTimeStamp = Timestamp.fromMicrosecondsSinceEpoch(datePick!.microsecondsSinceEpoch);
+
         
       });
 

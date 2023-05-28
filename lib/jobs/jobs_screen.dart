@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:freelanceapp_like_fiverr/searchcompany/search_job.dart';
 import 'package:freelanceapp_like_fiverr/widgets/bottom_navigation_screen.dart';
 import 'package:freelanceapp_like_fiverr/widgets/job_widget.dart';
 
@@ -15,7 +16,7 @@ class JobScreen extends StatefulWidget {
 }
 
 class _JobScreenState extends State<JobScreen> {
-  String jobCatergoryFilter = "";
+  String? jobCatergoryFilter;
 
   
   void _showJobCategoryDialogForFilter({required Size size}){
@@ -75,7 +76,40 @@ class _JobScreenState extends State<JobScreen> {
               }),
           ),
 
-          actions: [TextButton(onPressed: (() {
+          actions: [
+
+            TextButton(onPressed: (){
+
+              
+            },  child: Card(
+            
+            elevation: 9,
+            
+            child: GestureDetector(
+              onTap: (){
+                setState(() {
+                  jobCatergoryFilter = null;
+                  
+                });
+
+                Navigator.canPop(context)?Navigator.pop(context) : null;
+
+
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text("no filter", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                
+                ),
+              ),
+            )
+            )
+            
+            
+            ),
+            
+            
+            TextButton(onPressed: (() {
             Navigator.canPop(context)? Navigator.pop(context): null;
             
           }), child: Card(
@@ -84,8 +118,13 @@ class _JobScreenState extends State<JobScreen> {
             
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text("Close", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
-            )))],
+              child: Text("Close", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+              
+              ),
+            )
+            )
+            
+            )],
 
         ),
       );
@@ -141,11 +180,17 @@ class _JobScreenState extends State<JobScreen> {
         
       
         appBar: AppBar(
+          
+          
+
+          
           leading: IconButton(onPressed: (){
 
             _showJobCategoryDialogForFilter(size: size);
 
           }, icon: Icon(Icons.filter_list)),
+
+          
         flexibleSpace: Container(
 
           decoration: BoxDecoration(
@@ -163,10 +208,25 @@ class _JobScreenState extends State<JobScreen> {
 
 
         ),
+
+
+        
           
           
-          title: Text("Job Screen"),
-          centerTitle: true,),
+          title: Align(
+            alignment: Alignment.topRight,
+            child: IconButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SearchJob()));
+
+            }, icon: Icon(Icons.search)),
+          
+          
+          )
+          
+          
+          
+          
+          ),
 
 
           
@@ -180,9 +240,10 @@ class _JobScreenState extends State<JobScreen> {
         body: StreamBuilder(
           stream: FirebaseFirestore.instance
           .collection("jobPublishers")
+          // .where("recruitment", isEqualTo: true)
          
           .where("jobCategory", isEqualTo: jobCatergoryFilter )
-           .orderBy("createdAt", descending: true)
+         // .orderBy("createdAt", descending: true)
           .snapshots(),
           
           builder:(context, snapshot){
@@ -231,14 +292,11 @@ class _JobScreenState extends State<JobScreen> {
         
             }
 
-            else if(jobCatergoryFilter == null){
-             return Center(child: Text("There is no jobs you are for the category you type in"));
-            }
+            
         
         
         
-        
-             return Center(child: Text("Something went wrong"));
+             return Center(child: Text("There is no job"));
           } 
           
           

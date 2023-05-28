@@ -1,8 +1,13 @@
 
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:freelanceapp_like_fiverr/jobs/job_detail_screen.dart';
+import 'package:freelanceapp_like_fiverr/services/global_methods.dart';
 
 class JobWidget extends StatefulWidget {
 var jobId;
@@ -20,6 +25,60 @@ String jobTitle, jobDescription, uploadedby, userImage, name ,email, location;
 }
 
 class _JobWidgetState extends State<JobWidget> {
+
+  void _deleteJob(){
+    showDialog(context: context, builder: ((context) {
+
+      return AlertDialog(
+      actions: [
+      TextButton(onPressed: () async{
+
+      try {
+        var curentUserId = FirebaseAuth.instance.currentUser!.uid;
+        if(widget.uploadedby == curentUserId){
+        await  FirebaseFirestore.instance.collection("jobPublishers").doc(widget.jobId).delete();
+        Fluttertoast.showToast(msg: "deleted");
+        Navigator.pop(context);
+
+
+        }
+        else{
+          Navigator.pop(context);
+          GlobalMethod.showErrorDialog("This cannot be deleted", context);
+        }
+      
+      } catch (e) {
+         Navigator.pop(context);
+        GlobalMethod.showErrorDialog("This cannot be deleted", context);
+      }
+      finally{}
+
+
+
+
+
+
+      }, child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        
+        children: [
+        Icon(Icons.delete),
+        Text("delete"),
+
+
+      ],
+      ))
+
+      ],
+
+      );
+      
+    }));
+
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -30,7 +89,24 @@ class _JobWidgetState extends State<JobWidget> {
       
 
       child: ListTile(
+
+        onTap: (() {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (x)=>
+          JobDetails(
+
+            jobId: widget.jobId,
+            uploadedBy: widget.uploadedby,
+          )
+          
+          ));
+        }),
+
+        onLongPress: () {
+          _deleteJob();
+          
+        },
         contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        // contentPadding: EdgeInsets.only(top: 50),
         
         leading: Container(
           width: 100,
