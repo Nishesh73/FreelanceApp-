@@ -102,14 +102,23 @@ child: Scaffold(
   .snapshots(),
   builder: ((context, snapshot) {
     
-    if(snapshot.connectionState == ConnectionState.active){}
+ if(snapshot.connectionState == ConnectionState.waiting){
+          return Center(child: CircularProgressIndicator());
+
+
+        }
+
+
     return ListView.builder(
       
 
       itemCount: snapshot.data!.docs.length,
       itemBuilder: (context, index) {
         var querySnapshotData = snapshot.data!.docs[index].data();
-        if(snapshot.hasData){
+        
+
+
+      if(snapshot.hasData){
 
           if(searchQuery.isEmpty){
              return JobWidget(
@@ -127,7 +136,7 @@ child: Scaffold(
             
           }
 
-          else if(querySnapshotData["jobTitle"].toString().toLowerCase().startsWith(searchQuery)){
+          else if(querySnapshotData["jobTitle"].toString().toLowerCase().startsWith(searchQuery.toLowerCase())){
              return JobWidget(
               email: querySnapshotData["email"],
              jobId: querySnapshotData["jobId"], 
@@ -152,7 +161,9 @@ child: Scaffold(
 
         }
 
-        return Container();
+        return Container(
+          child: Text("wait"),
+        );
 
 
 

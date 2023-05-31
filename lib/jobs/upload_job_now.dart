@@ -26,6 +26,7 @@ class _UploadJobState extends State<UploadJob> {
   final _globalKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
+  bool keyBoardHide = false;
 
 
   DateTime? datePick;
@@ -178,11 +179,16 @@ void _uploadTaskInFirebase()async{
       
       
       
-      context: context, builder: (context){
+      context: context,
+       builder: (context){
 
-      return Padding(
-        padding: const EdgeInsets.only(top: 30.0),
+      return Container(
+        
         child: AlertDialog(
+          insetPadding: EdgeInsets.zero ,
+         
+           
+        
           backgroundColor: Colors.black38,
           
 
@@ -190,9 +196,7 @@ void _uploadTaskInFirebase()async{
           color: Colors.white),),
 
           content: Container(
-            width: size.width * .9,
-           
-            
+            width: size.width * .95,
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: Persistent.jobcatGory.length,
@@ -208,15 +212,17 @@ void _uploadTaskInFirebase()async{
                     });
                     
                   },
-                  child: Row(children: [
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
                     Icon(Icons.forward_sharp, color: Colors.white,),
                    
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(Persistent.jobcatGory[index], style: TextStyle(color:Colors.white),),
                     ),
-                
-                
+                                
+                                
                   ],),
 
 
@@ -411,14 +417,14 @@ child: Scaffold(
 
 
   body: Center(
-    child: Padding(padding: EdgeInsets.all(8.0),
+    child: Padding(padding: EdgeInsets.all(4.0),
 
     child: Card(
       color: Colors.black26,
 
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: Column(
             
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -426,7 +432,7 @@ child: Scaffold(
             
             children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(8.0),
               child: Text("Please fill all the fields",
               style: TextStyle(
                 
@@ -462,7 +468,7 @@ child: Scaffold(
                 }, textEditingController: _jobDeadlineController, maxLengthpropertyEnableOrDisable: false, maxLength: 100 ),
 
                 Center(
-                  child: MaterialButton(
+                  child: _isLoading? Center(child: CircularProgressIndicator()) : MaterialButton(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.0)),
                     padding: EdgeInsets.all(8.0),
                     color: Colors.black,
@@ -478,7 +484,7 @@ child: Scaffold(
                   }),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: _isLoading?Center(child: CircularProgressIndicator()) : Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       

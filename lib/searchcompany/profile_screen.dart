@@ -218,7 +218,7 @@ child: Scaffold(
                   color: Colors.white,),
                 ),
 
-                SizedBox(height: 15,),
+                SizedBox(height: 30,),
 
                 Text("Account information:"),
                 _accountInformation(Icons.email, email),
@@ -309,13 +309,13 @@ child: Scaffold(
 
 
         Padding(
-          padding: EdgeInsets.only(bottom: 20),
+          padding: EdgeInsets.only(bottom: 50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                    height: 40,
-                    width: 40,
+                    height: 70,
+                    width: 70,
 
                     decoration: BoxDecoration(
                       border: Border.all(width: 5,

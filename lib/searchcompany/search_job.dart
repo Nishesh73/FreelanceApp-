@@ -37,168 +37,188 @@ class _SearchJobState extends State<SearchJob> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      appBar: AppBar(
-
-        title: TextField(
-
-          onChanged: (value){
-
-            setState(() {
-              searchQuery = value;
-             
-              
-            });
-
-            
-
-
-
-          },
-          controller: _textEditingController,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-
-            filled: true,
-            fillColor: Colors.cyan,
-            hintText: "Search something",
-
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors:
         
-
-
-        ),
-        actions: [
-
-
-
-          IconButton(onPressed: (){
-            _clearTextField();
-
-
-          }, icon: Icon(Icons.clear,
-          color: Colors.white,
-          
-          ))
-        ],
+        [ Colors.yellow,
+        Colors.blue,
         
-       
-
-
-        leading: IconButton(onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => JobScreen()));
-        }, icon: Icon(Icons.arrow_back_ios)),
-        backgroundColor: Colors.yellow,
+        ]
+        )
 
 
       ),
-      backgroundColor: Colors.white,
-
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(stream: FirebaseFirestore.instance
-      .collection("jobPublishers")
-      // .orderBy("createdAt", descending: true)
-      // .where("jobTitle", isGreaterThanOrEqualTo: searchQuery)
-       .where("recruitment", isEqualTo: true)
-      
-      .snapshots(),
-
-      builder: ((context, snapshot) {
-
-        // if(snapshot.data == null){
-
-        //   return Text("No data at all");
-
-        // }
-         if(snapshot.connectionState == ConnectionState.waiting){
-
-          return CircularProgressIndicator();
-
-        }
-        else if(snapshot.hasError){
-          return Text("${snapshot.error}");
-
-        }
-
-        return ListView.builder(
-          itemCount: snapshot.data!.docs.length,
+      child: Scaffold(
+       
         
+        
+
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
           
-          itemBuilder: ((context, index) {
+
+          title: TextField(
+
+            onChanged: (value){
+
+              setState(() {
+                searchQuery = value;
+               
+                
+              });
+
+              
 
 
-            var querySnapshotData = snapshot.data!.docs[index].data();
 
-            // if(querySnapshotData["jobTitle"].toString().toLowerCase)
-            if(searchQuery.isEmpty){
+            },
+            controller: _textEditingController,
+            decoration: InputDecoration(
+              border: InputBorder.none,
 
+              filled: true,
+              fillColor: Colors.transparent,
+              hintText: "Search something",
 
-            return JobWidget(
-              email: querySnapshotData["email"],
-             jobId: querySnapshotData["jobId"], 
-             jobTitle: querySnapshotData["jobTitle"], 
-             jobDescription: querySnapshotData["jobDescription"] , 
-             uploadedby: querySnapshotData["uploadedBy"], 
-             userImage: querySnapshotData["userImage"], 
-             name: querySnapshotData["name"], 
-             location: querySnapshotData["location"]
-             
-             );
+            ),
+          
 
 
+          ),
+          actions: [
+
+
+
+            IconButton(onPressed: (){
+              _clearTextField();
+
+
+            }, icon: Icon(Icons.clear,
+            color: Colors.white,
+            
+            ))
+          ],
+          
+         
+
+
+          leading: IconButton(onPressed: (){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => JobScreen()));
+          }, icon: Icon(Icons.arrow_back_ios)),
+
+
+          
+
+
+        ),
+        backgroundColor: Colors.transparent,
+
+        body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(stream: FirebaseFirestore.instance
+        .collection("jobPublishers")
+        // .orderBy("createdAt", descending: true)
+        // .where("jobTitle", isGreaterThanOrEqualTo: searchQuery)
+         .where("recruitment", isEqualTo: true)
+        
+        .snapshots(),
+
+        builder: ((context, snapshot) {
+
+          // if(snapshot.data == null){
+
+          //   return Text("No data at all");
+
+          // }
+           if(snapshot.connectionState == ConnectionState.waiting){
+
+            return CircularProgressIndicator();
+
+          }
+          else if(snapshot.hasError){
+            return Text("${snapshot.error}");
 
           }
 
-        
-
-            //  return Text(querySnapshotData["jobTitle"]);
-
-            // return ListTile(
-            //   leading: Text(querySnapshotData["jobTitle"]),
-
-            // );
-
-            if(querySnapshotData["jobTitle"].toString().toLowerCase().startsWith(searchQuery.toLowerCase())){
-
-                 return JobWidget(
-              email: querySnapshotData["email"],
-             jobId: querySnapshotData["jobId"], 
-             jobTitle: querySnapshotData["jobTitle"], 
-             jobDescription: querySnapshotData["jobDescription"] , 
-             uploadedby: querySnapshotData["uploadedBy"], 
-             userImage: querySnapshotData["userImage"], 
-             name: querySnapshotData["name"], 
-             location: querySnapshotData["location"]
-             
-             );
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+          
+            
+            itemBuilder: ((context, index) {
 
 
+              var querySnapshotData = snapshot.data!.docs[index].data();
 
-              
+              // if(querySnapshotData["jobTitle"].toString().toLowerCase)
+              if(searchQuery.isEmpty){
+
+
+              return JobWidget(
+                email: querySnapshotData["email"],
+               jobId: querySnapshotData["jobId"], 
+               jobTitle: querySnapshotData["jobTitle"], 
+               jobDescription: querySnapshotData["jobDescription"] , 
+               uploadedby: querySnapshotData["uploadedBy"], 
+               userImage: querySnapshotData["userImage"], 
+               name: querySnapshotData["name"], 
+               location: querySnapshotData["location"]
+               
+               );
 
 
 
             }
 
-
-         return Container() ;  
-
-          }
           
-          
-          )
-          
-          
-          );
+
+              //  return Text(querySnapshotData["jobTitle"]);
+
+              // return ListTile(
+              //   leading: Text(querySnapshotData["jobTitle"]),
+
+              // );
+
+              if(querySnapshotData["jobTitle"].toString().toLowerCase().startsWith(searchQuery.toLowerCase())){
+
+                   return JobWidget(
+                email: querySnapshotData["email"],
+               jobId: querySnapshotData["jobId"], 
+               jobTitle: querySnapshotData["jobTitle"], 
+               jobDescription: querySnapshotData["jobDescription"] , 
+               uploadedby: querySnapshotData["uploadedBy"], 
+               userImage: querySnapshotData["userImage"], 
+               name: querySnapshotData["name"], 
+               location: querySnapshotData["location"]
+               
+               );
 
 
+
+                
+
+
+
+              }
+
+
+           return Container() ;  
+
+            }
+            
+            
+            )
+            
+            
+            );
+
+
+          
+        }),
         
-      }),
-      
+        ),
+
+
+
       ),
-
-
-
     );
   }
 }

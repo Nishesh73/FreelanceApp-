@@ -31,6 +31,7 @@ class _JobScreenState extends State<JobScreen> {
       return Padding(
         padding: const EdgeInsets.only(top: 30.0),
         child: AlertDialog(
+           insetPadding: EdgeInsets.zero,
           backgroundColor: Colors.black38,
           
 
@@ -38,9 +39,8 @@ class _JobScreenState extends State<JobScreen> {
           color: Colors.white),),
 
           content: Container(
-            width: size.width * .9,
            
-            
+            width: size.width * .98,
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: Persistent.jobcatGory.length,
@@ -58,7 +58,9 @@ class _JobScreenState extends State<JobScreen> {
                     });
                     
                   },
-                  child: Row(children: [
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
                     Icon(Icons.forward_sharp, color: Colors.white,),
                    
                     Padding(
