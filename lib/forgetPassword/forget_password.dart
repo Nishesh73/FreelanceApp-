@@ -42,12 +42,13 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black.withOpacity(1),
-      actions: [IconButton(onPressed: (){
-        Navigator.pop(context);
+      // actions: [IconButton(onPressed: (){
+      //   Navigator.pop(context);
 
 
 
-      }, icon: Icon(Icons.arrow_back))],),
+      // }, icon: Icon(Icons.arrow_back))],
+      ),
 
       body: Stack(children: [
         CachedNetworkImage(
